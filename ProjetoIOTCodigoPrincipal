@@ -1,0 +1,278 @@
+#Alunos: Raphael Elias, Matheus Juan, Kaique Santana, Miguel Lemos, Raian Antonio.
+
+import tkinter as tk
+from tkinter import messagebox
+
+# Funções auxiliares
+def validar_cnpj(cnpj_fornecedor):
+    cnpj_fornecedor = cnpj_fornecedor.strip().replace(".", "").replace("/", "").replace("-", "")  # Remover formatação
+    return len(cnpj_fornecedor) == 14 and cnpj_fornecedor.isdigit()
+
+def abrir_tela(tela_class):
+    tela_class()
+
+# Telas de CAdastros do fornecedor,cliente, produtos e funcionarios
+#classe de cadastros do fornecedor
+
+class TelaFornecedor:
+    def __init__(self):
+        self.tela = tk.Toplevel()
+        self.tela.title("Cadastro de Fornecedor")
+        self.tela.geometry("900x500")
+        self.tela.resizable(False, False)
+
+        tk.Label(self.tela, text="Nome do Fornecedor:", anchor='w').grid(row=1, column=0, pady=5, sticky='w')
+        self.entry_nome_fornecedor = tk.Entry(self.tela, width=40)
+        self.entry_nome_fornecedor.grid(row=1, column=1, pady=5)
+
+        tk.Label(self.tela, text="CNPJ:", anchor='w').grid(row=0, column=0, pady=5, sticky='w')
+        self.entry_cnpj_fornecedor = tk.Entry(self.tela, width=40)
+        self.entry_cnpj_fornecedor.grid(row=0, column=1, pady=5)
+
+        tk.Label(self.tela, text="Segmento do Fornecedor:", anchor='w').grid(row=2, column=0, pady=5, sticky='w')
+        self.entry_segmento_fornecedor = tk.Entry(self.tela, width=40)
+        self.entry_segmento_fornecedor.grid(row=2, column=1, pady=5)
+
+        tk.Label(self.tela, text="Endereço do Fornecedor:", anchor='w').grid(row=3, column=0, pady=5, sticky='w')
+        self.entry_endereco_fornecedor = tk.Entry(self.tela, width=40)
+        self.entry_endereco_fornecedor.grid(row=3, column=1, pady=5)
+
+        tk.Label(self.tela, text="Contato do Fornecedor:", anchor='w').grid(row=4, column=0, pady=5, sticky='w')
+        self.entry_contato_fornecedor = tk.Entry(self.tela, width=40)
+        self.entry_contato_fornecedor.grid(row=4, column=1, pady=5)
+
+        tk.Button(self.tela, text="Salvar", command=self.salvar).grid(row=5, column=1, pady=10)
+
+    def salvar(self):
+        cnpj_fornecedor = self.entry_cnpj_fornecedor.get().strip()
+        nome_fornecedor = self.entry_nome_fornecedor.get().strip()
+        segmento_fornecedor = self.entry_segmento_fornecedor.get().strip()
+        endereco_fornecedor = self.entry_endereco_fornecedor.get().strip()
+        contato_fornecedor = self.entry_contato_fornecedor.get().strip()
+
+        if not cnpj_fornecedor or not validar_cnpj(cnpj_fornecedor):
+            messagebox.showwarning("CNPJ inválido!")
+            return
+
+        if not nome_fornecedor:
+            messagebox.showwarning("O campo 'Nome Do Fornecedor' é obrigatório!")
+            return
+        
+        if not segmento_fornecedor:
+            messagebox.showwarning("O campo 'Nome Do Fornecedor' é obrigatório!")
+            return
+        
+        if not endereco_fornecedor:
+            messagebox.showwarning("O campo 'Endereço Do Fornecedor' é obrigatório!")
+            return
+        
+        if not contato_fornecedor:
+            messagebox.showwarning("O campo 'Contato Do Fornecedor' é obrigatório!")
+            return
+
+        # Salvando fornecedor
+        messagebox.showinfo("Sucesso", f"O Fornecedor '{nome_fornecedor}' salvo com sucesso!")
+        self.tela.destroy()
+
+# Calsse de cadastro dos clientes
+class TelaCliente:
+    def __init__(self):
+        self.tela = tk.Toplevel()
+        self.tela.title("Cadastro de Cliente")
+        self.tela.geometry("900x500")
+        self.tela.resizable(False, False)
+
+        tk.Label(self.tela, text="Nome do Cliente:", anchor='w').grid(row=0, column=0, pady=5, sticky='w')
+        self.entry_nome_cliente = tk.Entry(self.tela, width=40)
+        self.entry_nome_cliente.grid(row=0, column=1, pady=5)
+
+        tk.Label(self.tela, text="Tipo (Pessoa física/Jurídica):", anchor='w').grid(row=1, column=0, pady=5, sticky='w')
+        self.entry_tipo_cliente = tk.Entry(self.tela, width=40)
+        self.entry_tipo_cliente.grid(row=1, column=1, pady=5)
+
+        tk.Label(self.tela, text="CPF/CNPJ:", anchor='w').grid(row=2, column=0, pady=5, sticky='w')
+        self.entry_cpf_cnpj_cliente = tk.Entry(self.tela, width=40)
+        self.entry_cpf_cnpj_cliente.grid(row=2, column=1, pady=5)
+
+        tk.Label(self.tela, text="Endereço do Cliente:", anchor='w').grid(row=3, column=0, pady=5, sticky='w')
+        self.entry_endereco_cliente = tk.Entry(self.tela, width=40)
+        self.entry_endereco_cliente.grid(row=3, column=1, pady=5)
+
+        tk.Label(self.tela, text="Contato do Cliente:", anchor='w').grid(row=4, column=0, pady=5, sticky='w')
+        self.entry_contato_cliente = tk.Entry(self.tela, width=40)
+        self.entry_contato_cliente.grid(row=4, column=1, pady=5)
+
+        tk.Button(self.tela, text="Salvar", command=self.salvar).grid(row=5, column=1, pady=10)
+
+    def salvar(self):
+        nome_cliente = self.entry_nome.get().strip()
+        tipo_cliente = self.entry_tipo.get().strip()
+        cpf_cnpj_cliente = self.entry_cpf_cnpj.get().strip()
+        endereco_cliente = self.entry_endereco_cliente.get().strip()
+        contato_cliente = self.entry_contato_cliente.get().strip()
+
+        if not nome_cliente:
+            messagebox.showwarning("O campo 'Nome do Cliente' é obrigatório!!")
+            return
+        
+        if not tipo_cliente:
+            messagebox.showwarning("O campo 'Tipo do Cliente' é obrigatório!!")
+            return
+
+        if not cpf_cnpj_cliente:
+            messagebox.showwarning("O campo 'CPF/CNPJ do Cliente' é obrigatório!!")
+            return
+        
+        if not endereco_cliente:
+            messagebox.showwarning("O campo 'Endereço do Cliente' é obrigatório!!")
+            return
+        
+        if not contato_cliente:
+            messagebox.showwarning("O campo 'Contato do Cliente' é obrigatório!!")
+            return
+
+        # Salvando Cliente
+        messagebox.showinfo("Sucesso", f"O Cliente '{nome_cliente}' salvo com sucesso!")
+        self.tela.destroy()
+
+#calsse de cadastro de produtos
+class TelaProdutos:
+    def __init__(self):
+        self.tela = tk.Toplevel()
+        self.tela.title("Cadastro de Produtos")
+        self.tela.geometry("900x500")
+        self.tela.resizable(False, False)
+
+        tk.Label(self.tela, text="Nome do Produto:", anchor='w').grid(row=0, column=0, pady=5, sticky='w')
+        self.entry_nome_produto = tk.Entry(self.tela, width=40)
+        self.entry_nome_produto.grid(row=0, column=1, pady=5)
+
+        tk.Label(self.tela, text="Tipo do Produto:", anchor='w').grid(row=1, column=0, pady=5, sticky='w')
+        self.entry_tipo_produto = tk.Entry(self.tela, width=40)
+        self.entry_tipo_produto.grid(row=1, column=1, pady=5)
+
+        tk.Label(self.tela, text="Código do lote:", anchor='w').grid(row=2, column=0, pady=5, sticky='w')
+        self.entry_codigo_lote = tk.Entry(self.tela, width=40)
+        self.entry_codigo_lote.grid(row=2, column=1, pady=5)
+
+        tk.Label(self.tela, text="Validade:", anchor='w').grid(row=3, column=0, pady=5, sticky='w')
+        self.entry_validade = tk.Entry(self.tela, width=40)
+        self.entry_validade.grid(row=3, column=1, pady=5)
+
+        tk.Label(self.tela, text="Nome do Fornecedor:", anchor='w').grid(row=4, column=0, pady=5, sticky='w')
+        self.entry_fornecedor = tk.Entry(self.tela, width=40)
+        self.entry_fornecedor.grid(row=4, column=1, pady=5)
+
+        tk.Button(self.tela, text="Salvar", command=self.salvar).grid(row=5, column=1, pady=10)
+
+    def salvar(self):
+        nome_produto = self.entry_nome_produto.get().strip()
+        tipo_produto = self.entry_tipo_produto.get().strip()
+        codigo_lote = self.entry_codigo_lote.get().strip()
+        validade = self.entry_validade.get().strip()
+        fornecedor = self.entry_fornecedor.get().strip()
+
+        if not nome_produto:
+            messagebox.showwarning("O campo 'Nome do Produto' é obrigatório!")
+            return
+
+        if not tipo_produto:
+            messagebox.showwarning("Erro", "O campo 'Tipo do Produto' é obrigatório!")
+            return
+        
+        if not codigo_lote:
+            messagebox.showwarning("O campo 'Código do Lote' é obrigatório!")
+            return
+        
+        if not validade:
+            messagebox.showwarning("O campo 'Validade' é obrigatório!")
+            return
+        
+        if not fornecedor:
+            messagebox.showwarning("O campo 'Nome do Fornecedor' é obrigatório!")
+            return
+
+        # Salvando Produto
+        messagebox.showinfo("Sucesso", f"O Produto '{nome_produto}' foi salvo com sucesso!!")
+        self.tela.destroy()
+
+#tela de casdsatro de funcionario
+class TelaFuncionario:
+    def __init__(self):
+        self.tela = tk.Toplevel()
+        self.tela.title("Cadastro de Funcionários")
+        self.tela.geometry("900x500")
+        self.tela.resizable(False, False)
+
+        tk.Label(self.tela, text="Nome do Funcionario:", anchor='w').grid(row=0, column=0, pady=5, sticky='w')
+        self.entry_nome_funcionario = tk.Entry(self.tela, width=40)
+        self.entry_nome_funcionario.grid(row=0, column=1, pady=5)
+
+        tk.Label(self.tela, text="CPF do Funcionário:", anchor='w').grid(row=1, column=0, pady=5, sticky='w')
+        self.entry_cpf_funcionario = tk.Entry(self.tela, width=40)
+        self.entry_cpf_funcionario.grid(row=1, column=1, pady=5)
+
+        tk.Label(self.tela, text="Data de Nascimento:", anchor='w').grid(row=2, column=0, pady=5, sticky='w')
+        self.entry_data_nascimento = tk.Entry(self.tela, width=40)
+        self.entry_data_nascimento.grid(row=2, column=1, pady=5)
+
+        tk.Label(self.tela, text="Endereço do Funcionário:", anchor='w').grid(row=3, column=0, pady=5, sticky='w')
+        self.entry_endereco_funcionario = tk.Entry(self.tela, width=40)
+        self.entry_endereco_funcionario.grid(row=3, column=1, pady=5)
+
+        tk.Label(self.tela, text="Nome do Fornecedor:", anchor='w').grid(row=4, column=0, pady=5, sticky='w')
+        self.entry_contato_funcionario = tk.Entry(self.tela, width=40)
+        self.entry_contato_funcionario.grid(row=4, column=1, pady=5)
+
+        tk.Button(self.tela, text="Salvar", command=self.salvar).grid(row=5, column=1, pady=10)
+
+    def salvar(self):
+        nome_funcionario = self.entry_nome_funcionario.get().strip()
+        cpf_funcionario = self.entry_cpf_funcionario.get().strip()
+        data_nascimento = self.entry_data_nascimento.get().strip()
+        endereco_funcionario = self.entry_endereco_funcionario.get().strip()
+        contato_funcionario = self.entry_contato_funcionario.get().strip()
+
+        if not nome_funcionario:
+            messagebox.showwarning("O campo 'Nome do Funcionário' é obrigatório!")
+            return
+
+        if not cpf_funcionario:
+            messagebox.showwarning("O campo 'CPF do Funcionário' é obrigatório!")
+            return
+        
+        if not data_nascimento:
+            messagebox.showwarning("O campo 'Data de Nascimento' é obrigatório!")
+            return
+        
+        if not endereco_funcionario:
+            messagebox.showwarning("O campo 'Endreço do Funcionário' é obrigatório!")
+            return
+        
+        if not contato_funcionario:
+            messagebox.showwarning("O campo 'Contato do Funcionário' é obrigatório!")
+            return
+
+        #salvando funcionario
+        messagebox.showinfo("Sucesso", f"O Funcionário '{nome_funcionario}' foi salvo com sucesso!!")
+        self.tela.destroy()
+
+# Função com os botoes da tela principal
+def tela_principal():
+    root = tk.Tk()
+    root.title("Sistema de Cadastro")
+    root.geometry("600x300")
+
+    tk.Button(root, text="Cadastrar Fornecedor", command=lambda: abrir_tela(TelaFornecedor)).pack(pady=10)
+
+    tk.Button(root, text="Cadastrar Cliente", command=lambda: abrir_tela(TelaCliente)).pack(pady=10)
+
+    tk.Button(root, text="Cadastrar Funcionários", command=lambda: abrir_tela(TelaFuncionario)).pack(pady=10)
+
+    tk.Button(root, text="Cadastrar Produtos", command=lambda: abrir_tela(TelaProdutos)).pack(pady=10)
+    
+
+    root.mainloop()
+
+if __name__ == "__main__":
+    tela_principal()
